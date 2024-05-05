@@ -1,4 +1,5 @@
 const dotenv = require('dotenv')
+const nunjucks=require('nunjucks')
 dotenv.config();
 
 const express =require('express');
@@ -14,6 +15,12 @@ const userRouter = require('./routes/user');
 
 const app =express();
 app.set('port',process.env.PORT || 3000);
+app.set('view engine','html');
+
+nunjucks.configure('views',{
+    express: app,
+    watch: true,
+});
 
 app.use(morgan('dev'));
 app.use(cookieParser(process.env.COOKIE_SECRET));
